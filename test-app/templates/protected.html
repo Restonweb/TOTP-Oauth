@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="mb-4">受保护内容</h1>
+    <div class="card">
+        <div class="card-body">
+            <i class="fas fa-lock text-success mb-3" style="font-size: 2.5rem;"></i>
+            <p class="card-text">您已通过身份验证，可以查看此受保护内容</p>
+            <div class="alert alert-success mt-3">
+                <i class="fas fa-check-circle me-2"></i>
+                认证状态: 已验证
+            </div>
+        </div>
+    </div>
+    <a href="/" class="btn btn-outline-primary mt-4">
+        <i class="fas fa-home me-2"></i>返回首页
+    </a>
+</div>
+{% endblock %}

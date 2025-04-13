@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="mb-4">欢迎来到测试应用</h1>
+    <div class="card mb-4">
+        <div class="card-body">
+            <i class="fas fa-lock-open text-success mb-3" style="font-size: 2.5rem;"></i>
+            <p class="card-text">这是一个演示统一认证系统的测试应用</p>
+        </div>
+    </div>
+    <a href="/protected" class="btn btn-primary btn-lg">
+        <i class="fas fa-shield-alt me-2"></i>访问受保护页面
+    </a>
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="text-center mb-4">
+        <i class="fas fa-shield-alt text-primary" style="font-size: 3rem;"></i>
+        <h2>安全验证</h2>
+        <p class="text-muted">请输入您的安全验证码</p>
+    </div>
+    
+    <form method="POST" action="{{ url_for('auth.verify_totp') }}">
+        <input type="hidden" name="app_id" value="{{ app_id }}">
+        
+        <div class="mb-3">
+            <label for="code" class="form-label">安全验证码</label>
+            <input type="text" class="form-control form-control-lg" 
+                   id="code" name="code" placeholder="安全验证码" required>
+            <div class="progress mt-2">
+                <div id="totp-timer" class="progress-bar progress-bar-striped progress-bar-animated" 
+                     role="progressbar" style="width: 100%"></div>
+            </div>
+            <small class="text-muted" id="time-remaining">-</small>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-lg w-100">
+            <i class="fas fa-check-circle me-2"></i>验证
+        </button>
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const timerBar = document.getElementById('totp-timer');
+    const timeText = document.getElementById('time-remaining');
+    let timeLeft = 30;
+    
+    // 获取当前时间的秒数
+    const now = new Date();
+    const seconds = now.getSeconds();
+    // 计算当前验证码周期的剩余时间 (30秒周期)
+    timeLeft = 30 - (seconds % 30);
+    
+    updateTimer();
+    
+    function updateTimer() {
+        const percent = (timeLeft / 30) * 100;
+        timerBar.style.width = percent + '%';
+        timeText.textContent = '当前验证码剩余有效时间: ' + timeLeft + '秒';
+        
+        // 根据剩余时间改变颜色
+        if (timeLeft < 10) {
+            timerBar.classList.remove('bg-success');
+            timerBar.classList.add('bg-warning');
+        } else {
+            timerBar.classList.remove('bg-warning');
+            timerBar.classList.add('bg-success');
+        }
+        
+        timeLeft--;
+        
+        if (timeLeft >= 0) {
+            setTimeout(updateTimer, 1000);
+        } else {
+            // 时间到后重新开始30秒倒计时
+            timeLeft = 30;
+            setTimeout(updateTimer, 1000);
+        }
+    }
+});
+</script>
+{% endblock %}

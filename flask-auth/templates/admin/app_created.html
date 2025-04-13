@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auth-container text-center">
+    <div class="alert alert-success">
+        <i class="fas fa-check-circle me-2"></i>
+        应用创建成功！
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">应用凭证</h5>
+            <div class="mb-3">
+                <label class="form-label">App ID</label>
+                <input type="text" class="form-control" value="{{ app.id }}" readonly>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Secret Key</label>
+                <input type="text" class="form-control" value="{{ secret_key }}" readonly>
+                <div class="form-text text-danger">请妥善保存，此密钥仅显示一次</div>
+            </div>
+            {% if qr_code %}
+            <div class="mt-4">
+                <h6>TOTP 二维码</h6>
+                <img src="data:image/png;base64,{{ qr_code }}" alt="TOTP QR Code" class="img-fluid" style="max-width: 200px;">
+                <div class="form-text mt-2">使用Google Authenticator等应用扫描此二维码</div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="d-grid gap-2">
+        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary">
+            <i class="fas fa-tachometer-alt me-2"></i>返回控制台
+        </a>
+        <a href="{{ url_for('admin.create_app') }}" class="btn btn-outline-primary">
+            <i class="fas fa-plus me-2"></i>继续添加应用
+        </a>
+    </div>
+</div>
+{% endblock %}
