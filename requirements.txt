@@ -4,3 +4,4 @@ pyotp==2.8.0
 qrcode==7.4.2
 cryptography==39.0.1
 Flask-WTF==1.0.1
+requests==2.31.0
