@@ -5,3 +5,6 @@ qrcode==7.4.2
 cryptography==39.0.1
 Flask-WTF==1.0.1
 requests==2.31.0
+Pillow
+flask_migrate
+flask_login
